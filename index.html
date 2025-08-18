@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Henrique FS</title>
+</head>
+
+
+
+<body>
+
+    
+    <header>
+        <nav>
+            <ul>
+                <li onclick="sobre()">Sobre</li>
+                <li onclick="projetos()">Projetos</li>
+                <li onclick="contato()">Contato</li>
+
+            
+             <div class="theme-toggle" onclick="mudarTema()">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            
+                
+            
+        </nav>
+
+        
+    </header>
+    
+    
+    <main>
+        <section class="hero">
+            <h1>Henrique Alonso</h1>
+            <h2>Frontend Developer</h2>
+            <div class="social-buttons">
+                <a href="https://github.com/Henrique-Alonst" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/henrique-alonso-12546a20a/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:henriquealonso407@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </section>
+
+        <section id="sobre" class="sobre-section">
+  <div class="sobre-container">
+    <div class="sobre-text animate">
+      <h1>Sobre Mim</h1>
+      <p class="animate">
+        Olá! Meu nome é <strong>Henrique Alonso</strong> e sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong>, atualmente no <strong>3º semestre</strong> da faculdade FAQI. Sou apaixonado por programação e estou sempre em busca de aprender e aplicar novas tecnologias.
+      </p>
+      <p class="animate">
+        Desenvolvo <strong>projetos pessoais e acadêmicos</strong>, atuando tanto no <strong>front-end</strong> quanto no <strong>back-end</strong>. No front, meu foco é criar interfaces profissionais, utilizando principalmente <strong>HTML, CSS e JavaScript</strong>, enquanto no back aplico meus conhecimentos em <strong>Node.js, Express e MySQL</strong> para projetos acadêmicos.
+      </p>
+      <p class="animate">
+        Meu objetivo é me tornar um <strong>desenvolvedor full stack</strong>, unindo habilidades de front e back para entregar soluções completas e funcionais. Atualmente, estou em busca da minha <strong>primeira oportunidade na área</strong>, pronto para contribuir com dedicação, criatividade e aprendizado contínuo.
+      </p>
+    </div>
+    <div class="sobre-image animate">
+      <img src="assets/eu.jpeg" alt="Henrique Alonso">
+    </div>
+  </div>
+</section>
+
+<section id="formacao" class="formacao-section animate">
+  <h1>Formação</h1>
+  <div class="cards-container">
+    <div class="card">
+      <h2>Análise e Desenvolvimento de Sistemas</h2>
+      <p>Faculdade FAQI</p>
+      <p>2024 - 2026 (em andamento)</p>
+      <button class="btn-certificado" onclick="alert('Em breve')">Certificado</button>
+    </div>
+    <div class="card">
+      <h2>Bootcamp Front-end</h2>
+      <p>DIO / Santander</p>
+      <p>Concluído</p>
+      <button class="btn-certificado" onclick="window.location.href='certificado-bootcamp.pdf'">Certificado</button>
+    </div>
+  </div>
+</section>
+
+
+<section id="tecnologias" class="tecnologias-section animate">
+  <h1>Tecnologias</h1>
+  <div class="cards-container">
+    <div class="card">
+      <i class="fab fa-html5"></i>
+      <span>HTML</span>
+    </div>
+    <div class="card">
+      <i class="fab fa-css3-alt"></i>
+      <span>CSS</span>
+    </div>
+    <div class="card">
+      <i class="fab fa-js-square"></i>
+      <span>JavaScript</span>
+    </div>
+    <div class="card">
+      <i class="fab fa-node-js"></i>
+      <span>Node.js</span>
+    </div>
+    <div class="card">
+      <i class="fas fa-database"></i>
+      <span>MySQL</span>
+    </div>
+    <div class="card">
+      <i class="fab fa-git-alt"></i>
+      <span>Git</span>
+    </div>
+    
+  </div>
+</section>
+
+
+<section id="projetos" class="projetos-section animate">
+  <h1>Projetos</h1>
+  <div class="projects-grid">
+
+    <!-- Projeto Inovaflex -->
+    <div class="project-card">
+     
+        <img src="assets/inovaflex.png" alt="Projeto Inovaflex">
+
+      <div class="project-info">
+        <h2>Projeto profissional - Inovaflex</h2>
+        <p>Site desenvolvido de forma profissional para uma empresa de cortinas e persianas. Utilizei tecnologias de Frontend, mantive práticas de SEO e aprimorei meus conhecimentos sobre hospedagem de sites.</p>
+
+        <div class="tech-icons">
+          <i class="fab fa-html5"></i>
+          <i class="fab fa-css3-alt"></i>
+          <i class="fab fa-js"></i>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Henrique-Alonst/teste-site" target="_blank">GitHub</a>
+          <a href="https://inovaflexpersianas.com/" target="_blank">Site</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projeto Acadêmico 1 -->
+    <div class="project-card">
+      <img src="assets/fullstack1.png" alt="Projeto Acadêmico 1">
+      <div class="project-info">
+        <h2>Projeto Acadêmico Fullstack</h2>
+        <p>Meu primeiro projeto full stack, utilizando JavaScript, Node.js, Express, HTML, CSS e MySQL. Um aprendizado completo, aplicando tanto front-end quanto back-end.</p>
+
+        <div class="tech-icons">
+          <i class="fab fa-html5"></i>
+          <i class="fab fa-css3-alt"></i>
+          <i class="fab fa-js"></i>
+          <i class="fab fa-node-js"></i>
+          <i class="fas fa-database"></i>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Henrique-Alonst/checklist-fullstack" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projeto Acadêmico 2 -->
+    <div class="project-card">
+      <img src="assets/home - dark.png" alt="Projeto Acadêmico 2">
+      <div class="project-info">
+        <h2>Projeto pessoal - Cursos online</h2>
+       <p>Projeto de front-end com HTML, CSS e JavaScript, focado em treinar estilos dinâmicos e interações usando JavaScript.</p>
+
+        <div class="tech-icons">
+          <i class="fab fa-html5"></i>
+          <i class="fab fa-css3-alt"></i>
+          <i class="fab fa-js"></i>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/Henrique-Alonst/Plataforma-de-curso" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+    
+    </main>
+    
+    <footer></footer>
+    
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>

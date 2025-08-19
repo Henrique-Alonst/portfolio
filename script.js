@@ -10,27 +10,32 @@ function contato() {
     document.getElementById("contato").scrollIntoView({ behavior: "smooth" });
 }
 
-// Alternar tema
-function mudarTema() {
-  document.body.classList.toggle('dark');
-}
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+const navItems = document.querySelectorAll('.nav-links li');
 
-const animates = document.querySelectorAll('.animate');
+hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    hamburger.classList.toggle('active');
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
-    }
-  });
-}, {
-  threshold: 0.2 // anima quando 20% do elemento está visível
+    navItems.forEach((item, index) => {
+        if(navLinks.classList.contains('active')){
+            item.style.transitionDelay = `${index * 0.1}s`;
+        } else {
+            item.style.transitionDelay = `0s`;
+        }
+    });
 });
 
-// Adiciona cada elemento para ser observado
-animates.forEach(element => {
-  observer.observe(element);
+// Fechar menu ao clicar em qualquer link
+navItems.forEach(item => {
+    item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburger.classList.remove('active');
+        navItems.forEach(i => i.style.transitionDelay = '0s'); // reset delay
+    });
 });
+
 
 
 

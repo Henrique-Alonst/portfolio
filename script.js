@@ -1,3 +1,7 @@
+function home(){
+    document.getElementById("home").scrollIntoView({behavior: "smooth"});
+}
+
 function sobre() {
     document.getElementById("sobre").scrollIntoView({ behavior: "smooth" });
 }
@@ -36,6 +40,90 @@ navItems.forEach(item => {
     });
 });
 
+const form = document.getElementById('contact-form');
+const modal = document.getElementById('modal-success');
+const closeModal = document.getElementById('close-modal');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch('https://formspree.io/f/myzpqjek', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      modal.classList.remove('hide');
+      modal.classList.add('show');
+      modal.style.display = 'block';
+      form.reset();
+    } else {
+      alert('❌ Ocorreu um erro ao enviar. Tente novamente mais tarde.');
+    }
+  } catch (error) {
+    alert('❌ Ocorreu um erro ao enviar. Tente novamente mais tarde.');
+    console.error(error);
+  }
+});
+
+const closeModalFunction = () => {
+  modal.classList.remove('show');
+  modal.classList.add('hide');
+  setTimeout(() => { modal.style.display = 'none'; }, 300); // espera animação terminar
+}
+
+closeModal.onclick = closeModalFunction;
+window.onclick = (e) => { if (e.target == modal) closeModalFunction(); }
+
+
+// Função para abrir o modal de teste
+function testeModal() {
+  const modal = document.getElementById('modal-success');
+  modal.classList.remove('hide');
+  modal.classList.add('show');
+  modal.style.display = 'block';
+}
+
+// Função para fechar o modal (igual ao existente)
+function fecharModalTeste() {
+  const modal = document.getElementById('modal-success');
+  modal.classList.remove('show');
+  modal.classList.add('hide');
+  setTimeout(() => { modal.style.display = 'none'; }, 300);
+}
+
+
+
+
+
+
+const modalCertificado = document.getElementById('modal-certificado');
+const closeModalCertificado = document.getElementById('close-modal-certificado');
+const progressBar = document.getElementById('progress-bar');
+
+function abrirModalCertificado() {
+    modalCertificado.classList.remove('hide');
+    modalCertificado.classList.add('show');
+    modalCertificado.style.display = 'block';
+
+   
+    setTimeout(() => {
+        progressBar.style.width = '60%';
+    }, 100); // 
+}
+
+function fecharModalCertificado() {
+    modalCertificado.classList.remove('show');
+    modalCertificado.classList.add('hide');
+    progressBar.style.width = '0%'; // reseta a barra
+    setTimeout(() => { modalCertificado.style.display = 'none'; }, 300);
+}
+
+closeModalCertificado.onclick = fecharModalCertificado;
+window.onclick = (e) => { if (e.target == modalCertificado) fecharModalCertificado(); };
 
 
 

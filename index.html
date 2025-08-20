@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Henrique FS</title>
+    <link rel="shortcut icon" href="assets/logoprincipal.png" type="image/x-icon">
+    <title>Software Developer - Henrique</title>
 </head>
 
 
@@ -26,6 +27,7 @@
     </div>
 
     <ul class="nav-links">
+      <li onclick="home()">Home</li>
       <li onclick="sobre()">Sobre</li>
       <li onclick="projetos()">Projetos</li>
       <li onclick="contato()">Contato</li>
@@ -36,7 +38,7 @@
     
     
     <main>
-        <section class="hero">
+        <section class="hero" id="home">
             <h1>Henrique Alonso</h1>
             <h2>Frontend Developer</h2>
             <div class="social-buttons">
@@ -44,6 +46,13 @@
                 <a href="https://www.linkedin.com/in/henrique-alonso-12546a20a/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="mailto:henriquealonso407@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
+
+            
+    <div class="social-buttons">
+        <!-- seus links sociais -->
+    </div>
+
+    <a href="Henrique-Alonso-CV.pdf" class="btn-curriculo" download>Baixar Currículo <i class="fas fa-download"></i></a>
         </section>
 
         <section id="sobre" class="sobre-section">
@@ -73,7 +82,7 @@
       <h2>Análise e Desenvolvimento de Sistemas</h2>
       <p>Faculdade FAQI</p>
       <p>2024 - 2026 (em andamento)</p>
-      <button class="btn-certificado" onclick="alert('Em breve')">Certificado</button>
+      <button class="btn-certificado"  onclick="abrirModalCertificado()">Certificado</button>
     </div>
     <div class="card">
       <h2>Bootcamp Front-end</h2>
@@ -83,6 +92,21 @@
     </div>
   </div>
 </section>
+
+<!-- Modal de Certificado Formação -->
+<div id="modal-certificado" class="modal hide">
+  <div class="modal-content">
+    <span id="close-modal-certificado">&times;</span>
+    <h2>Certificado</h2>
+    <p>Progresso da formação:</p>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <p id="progress-text">Ainda me formarei </p>
+    <button onclick="fecharModalCertificado()" class="btn-certificado">Fechar</button>
+  </div>
+</div>
+
 
 
 <section id="tecnologias" class="tecnologias-section">
@@ -124,7 +148,7 @@
     <!-- Projeto Inovaflex -->
     <div class="project-card">
      
-        <img src="assets/inovaflex.png" alt="Projeto Inovaflex">
+        <img src="assets/inova.png" alt="Projeto Inovaflex">
 
       <div class="project-info">
         <h2>Projeto profissional - Inovaflex</h2>
@@ -144,7 +168,7 @@
 
     <!-- Projeto Acadêmico 1 -->
     <div class="project-card">
-      <img src="assets/fullstack1.png" alt="Projeto Acadêmico 1">
+      <img src="assets/fullstack.png" alt="Projeto Acadêmico 1">
       <div class="project-info">
         <h2>Projeto Acadêmico Fullstack</h2>
         <p>Meu primeiro projeto full stack, utilizando JavaScript, Node.js, Express, HTML, CSS e MySQL. Um aprendizado completo, aplicando tanto front-end quanto back-end.</p>
@@ -243,8 +267,57 @@
     
     </main>
     
-    <footer></footer>
-    
+<footer class="footer" id="contato"> 
+  <div class="footer-container">
+
+    <!-- Seção de contato -->
+    <div class="footer-top">
+      <h2>Quer trabalhar comigo?</h2>
+      <p>Entre em contato pelo formulário abaixo e vamos conversar.</p>
+      
+      <form id="contact-form" class="footer-form">
+        <div class="input-group">
+          <i class="fa fa-user"></i>
+          <input type="text" name="nome" placeholder="Seu nome" required>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-envelope"></i>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-phone"></i>
+          <input type="tel" name="telefone" placeholder="Seu telefone">
+        </div>
+        <div class="input-group">
+          <i class="fa fa-comment"></i>
+          <textarea name="mensagem" rows="4" placeholder="Escreva sua mensagem..." required></textarea>
+        </div>
+        <button type="submit">Enviar mensagem</button>
+      </form>
+    </div>
+
+    <!-- Links sociais -->
+    <div class="footer-bottom">
+      <p>© 2025 Henrique Alonso | Portfólio</p>
+      <div class="socials">
+        <a href="https://github.com/seuusuario" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/seuusuario" target="_blank">LinkedIn</a>
+        <a href="mailto:seuemail@gmail.com">E-mail</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Modals -->
+<div id="modal-success" class="modal">
+  <div class="modal-content">
+    <span id="close-modal">&times;</span>
+    <h3>✅ Mensagem enviada com sucesso!</h3>
+    <p>Entrarei em contato em breve. Obrigado!</p>
+  </div>
+</div>
+
+
 
 
 

@@ -1,3 +1,9 @@
+function siteDesenvolvimento(){
+  alert("Site ainda em desenvolvimento, você irá encontrar partes incompletas.")
+}
+siteDesenvolvimento();
+
+
 function home(){
     document.getElementById("home").scrollIntoView({behavior: "smooth"});
 }
@@ -87,6 +93,8 @@ function testeModal() {
   modal.style.display = 'block';
 }
 
+
+
 // Função para fechar o modal (igual ao existente)
 function fecharModalTeste() {
   const modal = document.getElementById('modal-success');
@@ -125,9 +133,12 @@ function fecharModalCertificado() {
 closeModalCertificado.onclick = fecharModalCertificado;
 window.onclick = (e) => { if (e.target == modalCertificado) fecharModalCertificado(); };
 
-
-
-
+function downloadCertificado() {
+  const link = document.createElement('a');
+  link.href = 'assets/javascript.pdf.pdf'; // caminho correto dentro de assets
+  link.download = 'Certificado.pdf';
+  link.click();
+}
 
 
 

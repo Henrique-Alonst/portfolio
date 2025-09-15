@@ -1,9 +1,3 @@
-function siteDesenvolvimento(){
-  alert("Site ainda em desenvolvimento, você irá encontrar partes incompletas.")
-}
-siteDesenvolvimento();
-
-
 function home(){
     document.getElementById("home").scrollIntoView({behavior: "smooth"});
 }
@@ -37,7 +31,7 @@ hamburger.addEventListener('click', () => {
     });
 });
 
-// Fechar menu ao clicar em qualquer link
+
 navItems.forEach(item => {
     item.addEventListener('click', () => {
         navLinks.classList.remove('active');
@@ -85,7 +79,7 @@ closeModal.onclick = closeModalFunction;
 window.onclick = (e) => { if (e.target == modal) closeModalFunction(); }
 
 
-// Função para abrir o modal de teste
+
 function testeModal() {
   const modal = document.getElementById('modal-success');
   modal.classList.remove('hide');
@@ -95,18 +89,12 @@ function testeModal() {
 
 
 
-// Função para fechar o modal (igual ao existente)
 function fecharModalTeste() {
   const modal = document.getElementById('modal-success');
   modal.classList.remove('show');
   modal.classList.add('hide');
   setTimeout(() => { modal.style.display = 'none'; }, 300);
 }
-
-
-
-
-
 
 const modalCertificado = document.getElementById('modal-certificado');
 const closeModalCertificado = document.getElementById('close-modal-certificado');
@@ -135,7 +123,7 @@ window.onclick = (e) => { if (e.target == modalCertificado) fecharModalCertifica
 
 function downloadCertificado() {
   const link = document.createElement('a');
-  link.href = 'assets/javascript.pdf.pdf'; // caminho correto dentro de assets
+  link.href = 'assets/javascript.pdf.pdf'; 
   link.download = 'Certificado.pdf';
   link.click();
 }

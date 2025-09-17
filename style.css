@@ -785,10 +785,16 @@ strong{
 
 @media (max-width: 767px) {
       .hero h1 {
-    font-size: 3rem;
+    font-size: 2.4rem;
     margin-bottom: 10px;
     color: #ffcc70;
       animation: flutuar 4s ease-in-out infinite;
+}
+
+.hero h2 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 20px;
 }
     
 }

@@ -36,7 +36,7 @@ navItems.forEach(item => {
     item.addEventListener('click', () => {
         navLinks.classList.remove('active');
         hamburger.classList.remove('active');
-        navItems.forEach(i => i.style.transitionDelay = '0s'); // reset delay
+        navItems.forEach(i => i.style.transitionDelay = '0s'); 
     });
 });
 
@@ -72,7 +72,7 @@ form.addEventListener('submit', async (e) => {
 const closeModalFunction = () => {
   modal.classList.remove('show');
   modal.classList.add('hide');
-  setTimeout(() => { modal.style.display = 'none'; }, 300); // espera animação terminar
+  setTimeout(() => { modal.style.display = 'none'; }, 300); 
 }
 
 closeModal.onclick = closeModalFunction;

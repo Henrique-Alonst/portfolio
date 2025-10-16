@@ -781,6 +781,8 @@ strong{
     .sobre-text { flex: 1; padding-right: 30px; }
     .sobre-image { flex: 1; display: flex; justify-content: center; align-items: center; }
     .projects-grid { grid-template-columns: repeat(2, 1fr); }
+
+    
 }
 
 @media (max-width: 767px) {

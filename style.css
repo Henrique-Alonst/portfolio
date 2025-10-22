@@ -770,6 +770,20 @@ strong{
   to { transform: scale(0); opacity: 0; }
 }
 
+body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #1a1a2e;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #f0db4f;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid #2e1a4d;  /* creates padding around scroll thumb */
+}
+
 /*RESPONSIVIDADE */
 
 @media (min-width: 768px) {

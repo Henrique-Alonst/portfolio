@@ -571,6 +571,7 @@ strong {
 .card i.fa-database { color: #4479A1; } 
 .card i.fa-github-alt { color: #ffffff; } 
 .card i.fa-brands.fa-laravel { color: #FF2D20; }
+.card i.fa-brands.fa-git-alt {color: #F14E32;}
 /* ===== PROJETOS ===== */
 .projetos-section {
     padding: 60px 20px;

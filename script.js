@@ -133,3 +133,51 @@ function fecharModalCertificado() {
 }
 
 closeModalCertificado.onclick = fecharModalCertificado;
+
+// ===== MODO LANTERNA =====
+const torchToggle = document.getElementById('torch-toggle');
+const torchControls = document.getElementById('torch-controls');
+const torchDarkness = document.getElementById('torch-darkness');
+const torchCursor = document.getElementById('torch-cursor');
+const torchRange = document.getElementById('torch-range');
+
+let torchActive = false;
+
+function moverTocha(x, y) {
+    torchDarkness.style.setProperty('--torch-x', x + 'px');
+    torchDarkness.style.setProperty('--torch-y', y + 'px');
+    torchCursor.style.left = x + 'px';
+    torchCursor.style.top = y + 'px';
+}
+
+function ativarTocha() {
+    torchActive = true;
+    document.body.classList.add('torch-mode');
+    torchToggle.classList.add('active');
+    torchControls.classList.remove('hide');
+    torchDarkness.style.setProperty('--torch-radius', torchRange.value + 'px');
+    moverTocha(window.innerWidth / 2, window.innerHeight / 2);
+}
+
+function desativarTocha() {
+    torchActive = false;
+    document.body.classList.remove('torch-mode');
+    torchToggle.classList.remove('active');
+    torchControls.classList.add('hide');
+}
+
+torchToggle.addEventListener('click', () => {
+    if (torchActive) {
+        desativarTocha();
+    } else {
+        ativarTocha();
+    }
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (torchActive) moverTocha(e.clientX, e.clientY);
+});
+
+torchRange.addEventListener('input', () => {
+    torchDarkness.style.setProperty('--torch-radius', torchRange.value + 'px');
+});

@@ -996,3 +996,125 @@ body::-webkit-scrollbar-thumb {
 @media (min-width: 1200px) {
     .projects-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ===== MODO LANTERNA ===== */
+.torch-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: none;
+    background: #ffcc70;
+    color: #202020;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.torch-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+.torch-toggle.active {
+    background: #2e1a4d;
+    color: #ffcc70;
+    box-shadow: 0 0 15px rgba(255, 204, 112, 0.6);
+}
+
+.torch-controls {
+    position: fixed;
+    bottom: 85px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(20, 20, 30, 0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 10px 14px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    z-index: 1100;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.torch-controls.hide {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+}
+
+.torch-controls i {
+    color: #ffcc70;
+    font-size: 0.85rem;
+}
+
+.torch-controls input[type="range"] {
+    width: 110px;
+    accent-color: #ffcc70;
+    cursor: pointer;
+}
+
+.torch-darkness {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+        circle var(--torch-radius, 200px) at var(--torch-x, 50%) var(--torch-y, 50%),
+        rgba(255, 235, 190, 0.95) 0%,
+        rgba(255, 204, 112, 0.45) 12%,
+        rgba(255, 204, 112, 0.12) 28%,
+        rgba(20, 15, 30, 0.55) 55%,
+        rgba(15, 10, 25, 0.93) 82%,
+        rgba(12, 8, 20, 0.97) 100%
+    );
+}
+
+body.torch-mode .torch-darkness {
+    opacity: 1;
+}
+
+body.torch-mode {
+    cursor: none;
+}
+
+.torch-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 34px;
+    pointer-events: none;
+    z-index: 1000;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    filter: drop-shadow(0 0 8px rgba(255, 204, 112, 0.85));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+body.torch-mode .torch-cursor {
+    opacity: 1;
+}
+
+@media (max-width: 767px) {
+    .torch-controls {
+        left: 10px;
+        bottom: 80px;
+        padding: 8px 12px;
+    }
+    .torch-controls input[type="range"] { width: 80px; }
+    .torch-toggle { left: 15px; bottom: 15px; }
+}

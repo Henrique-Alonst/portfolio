@@ -161,7 +161,7 @@
                 internos (intranet), utilizando o ecossistema
                 <strong>PHP</strong> com <strong>Laravel</strong> no Back-end e
                 garantindo o dinamismo e a estilização das interfaces através de
-                <strong>JavaScript</strong> e <strong>CSS</strong>. Sou
+                <strong>JavaScript</strong> e <strong>CSS</strong> e <strong>Bootstrap</strong>. Sou
                 responsável pela construção de automações para inteligência de
                 negócios (BI), otimizando o fluxo e a análise de dados da
                 empresa. Atuo fortemente na refatoração, organização e
@@ -444,6 +444,31 @@
     >
       <i class="fa-brands fa-whatsapp"></i>
     </a>
+
+    <!-- ===== MODO LANTERNA ===== -->
+    <button id="torch-toggle" class="torch-toggle" title="Ativar modo lanterna">
+      <i class="fa-solid fa-lightbulb"></i>
+    </button>
+
+    <div id="torch-controls" class="torch-controls hide">
+      <i class="fa-solid fa-moon"></i>
+      <input type="range" id="torch-range" min="90" max="380" value="200" step="10" />
+      <i class="fa-solid fa-sun"></i>
+    </div>
+
+    <div id="torch-darkness" class="torch-darkness"></div>
+
+    <svg id="torch-cursor" class="torch-cursor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="2" width="4" height="8" rx="1" fill="#8a7a5c"/>
+      <rect x="9" y="9" width="6" height="4" fill="#5a4c36"/>
+      <path d="M9 13 L15 13 L13.5 22 L10.5 22 Z" fill="url(#torch-glow)"/>
+      <defs>
+        <radialGradient id="torch-glow" cx="50%" cy="0%" r="100%">
+          <stop offset="0%" stop-color="#fff3d0"/>
+          <stop offset="100%" stop-color="#ffcc70"/>
+        </radialGradient>
+      </defs>
+    </svg>
 
     <script src="script.js"></script>
   </body>

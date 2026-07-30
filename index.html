@@ -274,15 +274,26 @@
       <section id="projetos" class="projetos-section">
         <h1 class="reveal">Projetos</h1>
         <div class="projects-grid">
-          <div class="project-card reveal reveal-delay-1">
-            <img src="assets/inova.png" alt="Projeto Inovaflex" />
+          <div
+            class="project-card reveal reveal-delay-1"
+            data-status="Freelance"
+            data-title="Inovaflex"
+            data-imagens="assets/inovaflex/inovaflex-1.png, assets/inovaflex/inovaflex-2.png, assets/inovaflex/inovaflex-3.png"
+            data-tecnologias="HTML,CSS,JavaScript"
+            data-github="https://github.com/Henrique-Alonst/teste-site"
+            data-site="https://inovaflexpersianas.com/"
+            data-detalhes="Site institucional desenvolvido de forma profissional para uma empresa de cortinas e persianas. O projeto foi construído com foco em performance e SEO, garantindo boa indexação nos buscadores e um carregamento rápido para os visitantes. Estruturei o layout do zero com HTML, CSS e JavaScript, cuidando de responsividade para desktop e mobile, otimização de imagens e meta tags para melhorar o posicionamento no Google. Também fiz a configuração completa da hospedagem, do domínio e coloquei o site no ar de ponta a ponta, o que me deu experiência prática em todo o ciclo de publicação de um site real para cliente, desde o primeiro protótipo até o suporte pós-lançamento."
+            data-periodo="Agosto 2025 – Setembro 2025"
+            data-papel="Desenvolvimento solo: do primeiro protótipo à hospedagem e publicação"
+            data-funcionalidades="Layout responsivo construído do zero|Otimização de SEO e performance|Configuração completa de hospedagem e domínio"
+          >
+            <span class="card-badge">Freelance</span>
+            <img src="assets/inovaflex/inovaflex-1.png" alt="Projeto Inovaflex" />
             <div class="project-info">
-              <h2>Projeto profissional - Inovaflex</h2>
+              <h2>Inovaflex</h2>
               <p>
-                Site desenvolvido de forma profissional para uma empresa de
-                cortinas e persianas. Utilizei tecnologias de Frontend, mantive
-                práticas de SEO e aprimorei meus conhecimentos sobre hospedagem
-                de sites.
+                Site institucional para uma empresa de cortinas e persianas,
+                com foco em performance, SEO e hospedagem configurada do zero.
               </p>
               <div class="tech-icons">
                 <i class="fab fa-html5"></i>
@@ -298,14 +309,31 @@
                 <a href="https://inovaflexpersianas.com/" target="_blank"
                   >Site</a
                 >
+                <button class="btn-detalhes" onclick="abrirModalProjeto(this)">
+                  Ver detalhes
+                </button>
               </div>
             </div>
           </div>
-          <div class="project-card reveal reveal-delay-3">
-            <img src="assets/boundless.png" alt="Projeto pessoal 2" />
+          <div
+            class="project-card reveal reveal-delay-3"
+            data-status="Pessoal"
+            data-title="Boundless"
+            data-imagens="assets/boundless/boundless-1.png,assets/boundless/boundless-2.png"
+            data-tecnologias="PHP,MySQL,JavaScript,HTML,CSS"
+            data-github="https://github.com/Henrique-Alonst/boundless"
+            data-detalhes="O Boundless é uma plataforma de gerenciamento pessoal desenvolvida em PHP para centralizar o controle de finanças, metas e estudos, com uma estética inspirada em cadernos vintage. É meu principal ambiente de desenvolvimento contínuo: nele já implementei um sistema de autenticação de usuário único, módulos de notas, projetos, objetivos, finanças, cartões de crédito e uma seção de estudos com temporizador Pomodoro. A arquitetura é organizada em API PHP, partials reutilizáveis carregados pelo index.php e utilitários JavaScript compartilhados entre as telas (drag and drop, upload de imagens, criação dinâmica de cards). O projeto também me serve para praticar arquitetura de software, refatoração de código, modelagem de banco de dados MySQL e organização de regras de negócio em uma estrutura mais escalável, incluindo uma documentação técnica própria em Markdown."
+            data-papel="Desenvolvimento e evolução solo, como ambiente pessoal contínuo de estudo"
+            data-funcionalidades="Autenticação de usuário único|Módulos de notas, projetos, metas e finanças|Timer Pomodoro para estudos"
+          >
+            <span class="card-badge">Pessoal</span>
+            <img src="assets/boundless/boundless-1.png" alt="Projeto pessoal 2" />
             <div class="project-info">
-              <h2>Projeto pessoal - Boundless</h2>
-              <p>O Boundless é uma plataforma de gerenciamento pessoal desenvolvida em PHP para centralizar o controle de finanças, metas e estudos. O projeto funciona como meu principal ambiente de desenvolvimento contínuo, focado em consolidar habilidades em arquitetura de software, integrações e evolução técnica. </p>
+              <h2>Boundless</h2>
+              <p>
+                Plataforma pessoal em PHP para centralizar finanças, metas e
+                estudos, com estética inspirada em cadernos vintage e Pomodoro.
+              </p>
               <div class="tech-icons">
                 <i class="fab fa-php"></i>
                 <i class="fas fa-database"></i>
@@ -319,17 +347,30 @@
                   target="_blank"
                   >GitHub</a
                 >
+                <button class="btn-detalhes" onclick="abrirModalProjeto(this)">
+                  Ver detalhes
+                </button>
               </div>
             </div>
           </div>
-          <div class="project-card reveal reveal-delay-2">
+          <div
+            class="project-card reveal reveal-delay-2"
+            data-status="Acadêmico"
+            data-title="Projeto Acadêmico Fullstack"
+            data-imagens="assets/fullstack.png"
+            data-tecnologias="HTML,CSS,JavaScript,Node.js,MySQL"
+            data-github="https://github.com/Henrique-Alonst/checklist-fullstack"
+            data-detalhes="Meu primeiro projeto full stack, desenvolvido com JavaScript, Node.js, Express, HTML, CSS e MySQL. Foi o projeto que me deu a base para trabalhar de ponta a ponta em uma aplicação: criei as rotas e a lógica de back-end em Node/Express, modelei o banco de dados em MySQL com as tabelas e relacionamentos necessários, e construí a interface em HTML e CSS consumindo essa API. Um checklist de tarefas serviu como caso de uso para aplicar operações de CRUD completas (criar, listar, atualizar e excluir), validação de dados no back-end e organização de rotas por responsabilidade. Foi um aprendizado completo, aplicando tanto front-end quanto back-end em um único fluxo de desenvolvimento."
+            data-papel="Desenvolvimento solo, aplicando front-end e back-end em um único fluxo"
+            data-funcionalidades="Rotas e lógica de back-end em Node/Express|Modelagem do banco de dados MySQL|CRUD completo com validação de dados"
+          >
+            <span class="card-badge">Acadêmico</span>
             <img src="assets/fullstack.png" alt="Projeto Acadêmico 1" />
             <div class="project-info">
               <h2>Projeto Acadêmico Fullstack</h2>
               <p>
-                Meu primeiro projeto full stack, utilizando JavaScript, Node.js,
-                Express, HTML, CSS e MySQL. Um aprendizado completo, aplicando
-                tanto front-end quanto back-end.
+                Meu primeiro projeto full stack: back-end em Node.js e Express,
+                banco MySQL e interface em HTML e CSS, do zero até o deploy.
               </p>
               <div class="tech-icons">
                 <i class="fab fa-html5"></i>
@@ -344,17 +385,31 @@
                   target="_blank"
                   >GitHub</a
                 >
+                <button class="btn-detalhes" onclick="abrirModalProjeto(this)">
+                  Ver detalhes
+                </button>
               </div>
             </div>
           </div>
 
-          <div class="project-card reveal reveal-delay-3">
+          <div
+            class="project-card reveal reveal-delay-3"
+            data-status="Pessoal"
+            data-title="Projeto pessoal - Cursos online"
+            data-imagens="assets/home - dark.png"
+            data-tecnologias="HTML,CSS,JavaScript"
+            data-github="https://github.com/Henrique-Alonst/Plataforma-de-curso"
+            data-detalhes="Projeto de front-end voltado para uma plataforma de cursos online, com HTML, CSS e JavaScript. O foco principal foi treinar estilos dinâmicos, transições e interações usando apenas JavaScript puro, sem frameworks, incluindo componentes como alternância de modo escuro, cards animados com hover, navegação suave entre seções e organização do CSS em variáveis reutilizáveis. Um projeto voltado para consolidar fundamentos de front-end antes de avançar para bibliotecas e frameworks mais robustos."
+            data-papel="Desenvolvimento solo em front-end puro, sem frameworks"
+            data-funcionalidades="Alternância de modo escuro|Cards animados com hover|Navegação suave entre seções"
+          >
+            <span class="card-badge">Pessoal</span>
             <img src="assets/home - dark.png" alt="Projeto Acadêmico 2" />
             <div class="project-info">
               <h2>Projeto pessoal - Cursos online</h2>
               <p>
-                Projeto de front-end com HTML, CSS e JavaScript, focado em
-                treinar estilos dinâmicos e interações usando JavaScript.
+                Plataforma de cursos online em front-end puro, treinando modo
+                escuro, cards animados e navegação com JavaScript sem libs.
               </p>
               <div class="tech-icons">
                 <i class="fab fa-html5"></i>
@@ -367,12 +422,46 @@
                   target="_blank"
                   >GitHub</a
                 >
+                <button class="btn-detalhes" onclick="abrirModalProjeto(this)">
+                  Ver detalhes
+                </button>
               </div>
             </div>
           </div>
         </div>
       </section>
     </main>
+
+    <!-- MODAL DE DETALHES DO PROJETO -->
+    <div id="modal-projeto" class="modal">
+      <div class="modal-content modal-content-projeto">
+        <div class="projeto-galeria" id="projeto-galeria">
+          <div class="projeto-galeria-track" id="projeto-galeria-track"></div>
+          <button class="galeria-seta galeria-prev" id="galeria-prev" aria-label="Foto anterior">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="galeria-seta galeria-next" id="galeria-next" aria-label="Próxima foto">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          <div class="galeria-dots" id="galeria-dots"></div>
+        </div>
+
+        <div class="projeto-modal-corpo">
+          <span id="projeto-badge" class="project-badge"></span>
+          <h2 id="projeto-titulo"></h2>
+          <p id="projeto-periodo" class="projeto-periodo"><i class="fas fa-calendar-alt"></i> <span></span></p>
+          <p id="projeto-papel" class="projeto-papel"></p>
+          <p id="projeto-descricao"></p>
+          <ul id="projeto-funcionalidades" class="projeto-funcionalidades"></ul>
+          <div id="projeto-tecnologias" class="projeto-modal-tags"></div>
+          <div id="projeto-links" class="project-links projeto-modal-links"></div>
+        </div>
+
+        <button class="btn-voltar" id="btn-voltar-projeto">
+          <i class="fa-solid fa-arrow-left"></i> Voltar
+        </button>
+      </div>
+    </div>
 
     <footer class="footer" id="contato">
       <div class="footer-container">

@@ -603,6 +603,7 @@ strong {
 }
 
 .project-card {
+    position: relative;
     background: rgba(255,255,255,0.07);
     border-radius: 20px;
     overflow: hidden;
@@ -612,6 +613,24 @@ strong {
     transition: transform 0.35s ease, box-shadow 0.35s ease;
     animation: glow 3s ease-in-out infinite;
     border: 1px solid rgba(255,255,255,0.06);
+}
+
+.card-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: rgba(20, 15, 30, 0.65);
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .project-card:hover {
@@ -629,7 +648,10 @@ strong {
 
 .project-card:hover img { transform: scale(1.07); }
 
-.project-info { padding: 18px; }
+.project-info {
+    padding: 18px;
+    text-align: left;
+}
 
 .project-info h2 {
     font-size: 1.3rem;
@@ -645,6 +667,7 @@ strong {
     color: #ddd;
     margin-bottom: 12px;
     font-weight: 300;
+    min-height: 3.2em;
 }
 
 .tech-icons {
@@ -677,28 +700,48 @@ strong {
 .project-info .tech-icons i.fas.fa-database { color: #f29111; }
 .project-info .tech-icons i.fab.fa-git-alt { color: #f1502f; }
 
+/* Badge de status do projeto (freelance/pessoal/acadêmico) */
+.project-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    background: rgba(203, 180, 255, 0.2);
+    color: var(--purple);
+    border: 1px solid var(--purple);
+}
+
 .project-links {
     margin-top: 14px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
 }
 
-.project-links a {
+.project-links a,
+.btn-detalhes {
     display: inline-block;
     padding: 8px 16px;
     background: var(--charcoal);
     color: var(--amber);
+    border: none;
     border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
     font-family: 'Poppins', sans-serif;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.project-links a:hover {
+.project-links a:hover,
+.btn-detalhes:hover {
     background: var(--amber);
     color: var(--charcoal);
     transform: translateY(-3px);
@@ -1016,7 +1059,7 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 1100;
+    z-index: 1200;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
@@ -1045,7 +1088,7 @@ body::-webkit-scrollbar-thumb {
     padding: 10px 14px;
     border-radius: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    z-index: 1100;
+    z-index: 1200;
     opacity: 1;
     transform: translateY(0);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1072,7 +1115,7 @@ body::-webkit-scrollbar-thumb {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 999;
+    z-index: 1150;
     opacity: 0;
     transition: opacity 0.4s ease;
     background: radial-gradient(
@@ -1101,7 +1144,7 @@ body.torch-mode {
     width: 34px;
     height: 34px;
     pointer-events: none;
-    z-index: 1000;
+    z-index: 1160;
     transform: translate(-50%, -50%) rotate(-45deg);
     filter: drop-shadow(0 0 8px rgba(255, 204, 112, 0.85));
     opacity: 0;
@@ -1120,4 +1163,260 @@ body.torch-mode .torch-cursor {
     }
     .torch-controls input[type="range"] { width: 80px; }
     .torch-toggle { left: 15px; bottom: 15px; }
+}
+
+/* ===== MODAL DE DETALHES DO PROJETO ===== */
+
+/* Trava o scroll da página por trás enquanto o modal estiver aberto,
+   assim existe apenas o scroll do modal + o scroll principal, nunca os dois juntos */
+body.modal-open {
+    overflow: hidden;
+}
+
+#modal-projeto {
+    /* o backdrop não deve rolar — só o corpo do modal tem scroll próprio */
+    overflow: hidden;
+}
+
+#modal-projeto .modal-content-projeto {
+    margin: 3vh auto;
+}
+
+.modal-content-projeto {
+    max-width: 920px;
+    width: 94%;
+    text-align: left;
+    align-items: stretch;
+    justify-content: flex-start;
+    max-height: 90vh;
+    padding: 0 0 28px;
+    overflow: hidden; /* a rolagem acontece só dentro do corpo, logo abaixo */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== GALERIA ===== */
+.projeto-galeria {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    background: rgba(0,0,0,0.25);
+    flex-shrink: 0;
+}
+
+.projeto-galeria-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s ease;
+}
+
+.projeto-galeria-track img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.galeria-seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(20, 15, 30, 0.55);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.galeria-seta:hover {
+    background: var(--amber);
+    color: var(--charcoal);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.galeria-prev { left: 14px; }
+.galeria-next { right: 14px; }
+
+.galeria-seta.hide { display: none; }
+
+.galeria-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.galeria-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.galeria-dots span.ativo {
+    background: var(--amber);
+    transform: scale(1.2);
+}
+
+.galeria-dots.hide { display: none; }
+
+/* ===== CORPO DO MODAL (com scroll próprio) ===== */
+.projeto-modal-corpo {
+    padding: 26px 32px 6px;
+    overflow-y: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+/* Scrollbar do corpo do modal na mesma paleta da scrollbar principal do site */
+.projeto-modal-corpo::-webkit-scrollbar { width: 10px; }
+.projeto-modal-corpo::-webkit-scrollbar-track { background: var(--navy); border-radius: 20px; }
+.projeto-modal-corpo::-webkit-scrollbar-thumb {
+    background-color: #f0db4f;
+    border-radius: 20px;
+    border: 2px solid var(--plum);
+}
+.projeto-modal-corpo { scrollbar-width: thin; scrollbar-color: #f0db4f var(--navy); }
+
+#projeto-titulo {
+    color: var(--amber);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.projeto-periodo {
+    font-size: 0.88rem;
+    color: #aaa;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 300;
+}
+
+.projeto-periodo i {
+    color: var(--amber);
+    font-size: 0.85rem;
+}
+
+.projeto-papel {
+    font-size: 0.95rem;
+    color: var(--tan);
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+#projeto-descricao {
+    font-size: 0.98rem;
+    line-height: 1.8;
+    color: #ddd;
+    font-weight: 300;
+    margin-bottom: 18px;
+    white-space: pre-line;
+}
+
+.projeto-funcionalidades {
+    list-style: none;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.projeto-funcionalidades li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #ddd;
+    font-weight: 300;
+    padding-left: 20px;
+    position: relative;
+}
+
+.projeto-funcionalidades li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+}
+
+.projeto-modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.projeto-modal-tags span {
+    background: rgba(255, 204, 112, 0.12);
+    color: var(--amber);
+    border: 1px solid rgba(255, 204, 112, 0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.projeto-modal-links {
+    justify-content: center;
+    margin-top: 0;
+}
+
+/* ===== BOTÃO VOLTAR ===== */
+.btn-voltar {
+    align-self: center;
+    margin: 20px auto 0;
+    padding: 10px 26px;
+    background: transparent;
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-voltar:hover {
+    background: var(--amber);
+    color: var(--charcoal);
+    transform: translateY(-3px);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+}
+
+#modal-projeto.show .modal-content { animation: zoomIn 0.3s forwards; }
+#modal-projeto.hide .modal-content { animation: zoomOut 0.3s forwards; }
+
+@media (max-width: 700px) {
+    .modal-content-projeto {
+        width: 96%;
+        max-height: 92vh;
+    }
+    .projeto-galeria { height: 220px; }
+    .projeto-modal-corpo { padding: 20px 20px 4px; }
+    .galeria-seta { width: 36px; height: 36px; font-size: 0.9rem; }
 }

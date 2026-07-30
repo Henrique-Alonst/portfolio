@@ -108,11 +108,6 @@ const closeModalFunction = () => {
 
 closeModal.onclick = closeModalFunction;
 
-window.onclick = (e) => {
-    if (e.target == modal) closeModalFunction();
-    if (e.target == modalCertificado) fecharModalCertificado();
-};
-
 // ===== MODAL CERTIFICADO =====
 const modalCertificado = document.getElementById('modal-certificado');
 const closeModalCertificado = document.getElementById('close-modal-certificado');
@@ -133,6 +128,196 @@ function fecharModalCertificado() {
 }
 
 closeModalCertificado.onclick = fecharModalCertificado;
+
+// ===== MODAL DETALHES DO PROJETO =====
+const modalProjeto = document.getElementById('modal-projeto');
+const btnVoltarProjeto = document.getElementById('btn-voltar-projeto');
+const projetoBadge = document.getElementById('projeto-badge');
+const projetoTitulo = document.getElementById('projeto-titulo');
+const projetoPeriodo = document.getElementById('projeto-periodo');
+const projetoPeriodoTexto = projetoPeriodo.querySelector('span');
+const projetoPapel = document.getElementById('projeto-papel');
+const projetoDescricao = document.getElementById('projeto-descricao');
+const projetoFuncionalidades = document.getElementById('projeto-funcionalidades');
+const projetoTecnologias = document.getElementById('projeto-tecnologias');
+const projetoLinks = document.getElementById('projeto-links');
+
+// Galeria
+const galeriaTrack = document.getElementById('projeto-galeria-track');
+const galeriaDots = document.getElementById('galeria-dots');
+const galeriaPrev = document.getElementById('galeria-prev');
+const galeriaNext = document.getElementById('galeria-next');
+
+let galeriaImagens = [];
+let galeriaIndex = 0;
+
+function montarGaleria(imagens, titulo) {
+    galeriaImagens = imagens;
+    galeriaIndex = 0;
+
+    galeriaTrack.innerHTML = '';
+    imagens.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `${titulo} - foto ${i + 1}`;
+        galeriaTrack.appendChild(img);
+    });
+
+    galeriaDots.innerHTML = '';
+    imagens.forEach((_, i) => {
+        const dot = document.createElement('span');
+        if (i === 0) dot.classList.add('ativo');
+        dot.addEventListener('click', () => irParaFoto(i));
+        galeriaDots.appendChild(dot);
+    });
+
+    const multiplasFotos = imagens.length > 1;
+    galeriaPrev.classList.toggle('hide', !multiplasFotos);
+    galeriaNext.classList.toggle('hide', !multiplasFotos);
+    galeriaDots.classList.toggle('hide', !multiplasFotos);
+
+    atualizarGaleria();
+}
+
+function atualizarGaleria() {
+    galeriaTrack.style.transform = `translateX(-${galeriaIndex * 100}%)`;
+    [...galeriaDots.children].forEach((dot, i) => {
+        dot.classList.toggle('ativo', i === galeriaIndex);
+    });
+}
+
+function irParaFoto(i) {
+    galeriaIndex = i;
+    atualizarGaleria();
+}
+
+function fotoAnterior() {
+    galeriaIndex = (galeriaIndex - 1 + galeriaImagens.length) % galeriaImagens.length;
+    atualizarGaleria();
+}
+
+function fotoProxima() {
+    galeriaIndex = (galeriaIndex + 1) % galeriaImagens.length;
+    atualizarGaleria();
+}
+
+galeriaPrev.onclick = fotoAnterior;
+galeriaNext.onclick = fotoProxima;
+
+// Suporte a swipe (arrastar) no celular
+let touchStartX = 0;
+galeriaTrack.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+galeriaTrack.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(diff) > 40 && galeriaImagens.length > 1) {
+        if (diff > 0) fotoAnterior();
+        else fotoProxima();
+    }
+});
+
+function abrirModalProjeto(botao) {
+    // Sobe até o card do projeto que contém o botão clicado
+    const card = botao.closest('.project-card');
+    if (!card) return;
+
+    const titulo = card.dataset.title || '';
+    const imagens = (card.dataset.imagens || '')
+        .split(',')
+        .map(i => i.trim())
+        .filter(Boolean);
+    const detalhes = card.dataset.detalhes || '';
+    const tecnologias = (card.dataset.tecnologias || '')
+        .split(',')
+        .map(t => t.trim())
+        .filter(Boolean);
+    const github = card.dataset.github || '';
+    const site = card.dataset.site || '';
+    const status = card.dataset.status || '';
+    const periodo = card.dataset.periodo || '';
+    const papel = card.dataset.papel || '';
+    const funcionalidades = (card.dataset.funcionalidades || '')
+        .split('|')
+        .map(f => f.trim())
+        .filter(Boolean);
+
+    montarGaleria(imagens, titulo);
+
+    projetoBadge.textContent = status;
+    projetoBadge.style.display = status ? 'inline-block' : 'none';
+
+    projetoTitulo.textContent = titulo;
+
+    projetoPeriodoTexto.textContent = periodo;
+    projetoPeriodo.style.display = periodo ? 'flex' : 'none';
+
+    projetoPapel.textContent = papel;
+    projetoPapel.style.display = papel ? 'block' : 'none';
+
+    projetoDescricao.textContent = detalhes;
+
+    projetoFuncionalidades.innerHTML = '';
+    funcionalidades.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        projetoFuncionalidades.appendChild(li);
+    });
+    projetoFuncionalidades.style.display = funcionalidades.length ? 'block' : 'none';
+
+    projetoTecnologias.innerHTML = '';
+    tecnologias.forEach(tec => {
+        const span = document.createElement('span');
+        span.textContent = tec;
+        projetoTecnologias.appendChild(span);
+    });
+
+    projetoLinks.innerHTML = '';
+    if (github) {
+        const a = document.createElement('a');
+        a.href = github;
+        a.target = '_blank';
+        a.textContent = 'GitHub';
+        projetoLinks.appendChild(a);
+    }
+    if (site) {
+        const a = document.createElement('a');
+        a.href = site;
+        a.target = '_blank';
+        a.textContent = 'Site';
+        projetoLinks.appendChild(a);
+    }
+
+    modalProjeto.classList.remove('hide');
+    modalProjeto.classList.add('show');
+    modalProjeto.style.display = 'block';
+    document.body.classList.add('modal-open');
+}
+
+function fecharModalProjeto() {
+    modalProjeto.classList.remove('show');
+    modalProjeto.classList.add('hide');
+    document.body.classList.remove('modal-open');
+    setTimeout(() => { modalProjeto.style.display = 'none'; }, 300);
+}
+
+btnVoltarProjeto.onclick = fecharModalProjeto;
+
+// ===== FECHAR MODAIS CLICANDO FORA =====
+window.onclick = (e) => {
+    if (e.target == modal) closeModalFunction();
+    if (e.target == modalCertificado) fecharModalCertificado();
+    if (e.target == modalProjeto) fecharModalProjeto();
+};
+
+document.addEventListener('keydown', (e) => {
+    if (modalProjeto.style.display !== 'block') return;
+
+    if (e.key === 'Escape') fecharModalProjeto();
+    if (e.key === 'ArrowLeft') fotoAnterior();
+    if (e.key === 'ArrowRight') fotoProxima();
+});
 
 // ===== MODO LANTERNA =====
 const torchToggle = document.getElementById('torch-toggle');

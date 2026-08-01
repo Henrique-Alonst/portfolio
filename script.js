@@ -11,8 +11,9 @@ const navLinks = document.querySelector('.nav-links');
 const navItems = document.querySelectorAll('.nav-links li');
 
 hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+    const aberto = navLinks.classList.toggle('active');
     hamburger.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', aberto ? 'true' : 'false');
     navItems.forEach((item, index) => {
         item.style.transitionDelay = navLinks.classList.contains('active') ? `${index * 0.1}s` : '0s';
     });
@@ -22,6 +23,7 @@ navItems.forEach(item => {
     item.addEventListener('click', () => {
         navLinks.classList.remove('active');
         hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
         navItems.forEach(i => i.style.transitionDelay = '0s');
     });
 });
@@ -72,6 +74,60 @@ function criarParticulas() {
 
 criarParticulas();
 
+// ===== FILTRO DE PROJETOS =====
+const filtroBotoes = document.querySelectorAll('.filtro-btn');
+const projectCards = Array.from(document.querySelectorAll('.project-card'));
+const projetosVazio = document.getElementById('projetos-vazio');
+
+// Atualiza os contadores de cada categoria
+function atualizarContadores() {
+    const contagem = { todos: projectCards.length };
+    projectCards.forEach(card => {
+        const status = card.dataset.status || 'Outros';
+        contagem[status] = (contagem[status] || 0) + 1;
+    });
+
+    document.querySelectorAll('.filtro-count').forEach(span => {
+        const id = span.id.replace('count-', '');
+        span.textContent = contagem[id] || 0;
+    });
+}
+
+function aplicarFiltro(filtro) {
+    let visiveis = 0;
+
+    projectCards.forEach(card => {
+        const combina = filtro === 'todos' || card.dataset.status === filtro;
+
+        if (combina) {
+            visiveis++;
+            card.classList.remove('oculto', 'filtrando-saida');
+            // reinicia a animação de entrada
+            card.classList.remove('filtrando-entrada');
+            void card.offsetWidth; // força reflow para reiniciar a animação
+            card.classList.add('filtrando-entrada');
+        } else {
+            card.classList.add('filtrando-saida');
+            card.classList.remove('filtrando-entrada');
+            setTimeout(() => card.classList.add('oculto'), 300);
+        }
+    });
+
+    if (projetosVazio) {
+        projetosVazio.classList.toggle('hide', visiveis > 0);
+    }
+}
+
+filtroBotoes.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filtroBotoes.forEach(b => b.classList.remove('ativo'));
+        btn.classList.add('ativo');
+        aplicarFiltro(btn.dataset.filtro);
+    });
+});
+
+atualizarContadores();
+
 // ===== FORMULÁRIO DE CONTATO =====
 const form = document.getElementById('contact-form');
 const modal = document.getElementById('modal-success');
@@ -79,6 +135,14 @@ const closeModal = document.getElementById('close-modal');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Honeypot: se o campo escondido veio preenchido, é bot — ignora silenciosamente
+    const honeypot = form.querySelector('input[name="_gotcha"]');
+    if (honeypot && honeypot.value) {
+        form.reset();
+        return;
+    }
+
     const formData = new FormData(form);
     try {
         const response = await fetch('https://formspree.io/f/myzpqjek', {
@@ -87,9 +151,7 @@ form.addEventListener('submit', async (e) => {
             headers: { 'Accept': 'application/json' }
         });
         if (response.ok) {
-            modal.classList.remove('hide');
-            modal.classList.add('show');
-            modal.style.display = 'block';
+            abrirModal(modal, closeModal);
             form.reset();
         } else {
             alert('❌ Ocorreu um erro ao enviar. Tente novamente mais tarde.');
@@ -101,37 +163,99 @@ form.addEventListener('submit', async (e) => {
 });
 
 const closeModalFunction = () => {
-    modal.classList.remove('show');
-    modal.classList.add('hide');
-    setTimeout(() => { modal.style.display = 'none'; }, 300);
+    fecharModal(modal);
 };
 
 closeModal.onclick = closeModalFunction;
+closeModal.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        closeModalFunction();
+    }
+});
 
 // ===== MODAL CERTIFICADO =====
 const modalCertificado = document.getElementById('modal-certificado');
 const closeModalCertificado = document.getElementById('close-modal-certificado');
 const progressBar = document.getElementById('progress-bar');
+const btnCertificado = document.querySelector('.btn-certificado[onclick="abrirModalCertificado()"]');
 
 function abrirModalCertificado() {
-    modalCertificado.classList.remove('hide');
-    modalCertificado.classList.add('show');
-    modalCertificado.style.display = 'block';
+    abrirModal(modalCertificado, closeModalCertificado);
     setTimeout(() => { progressBar.style.width = '60%'; }, 100);
 }
 
 function fecharModalCertificado() {
-    modalCertificado.classList.remove('show');
-    modalCertificado.classList.add('hide');
+    fecharModal(modalCertificado);
     progressBar.style.width = '0%';
-    setTimeout(() => { modalCertificado.style.display = 'none'; }, 300);
 }
 
 closeModalCertificado.onclick = fecharModalCertificado;
+closeModalCertificado.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fecharModalCertificado();
+    }
+});
+
+// ===== FOCO: ABRIR/FECHAR MODAL COM GESTÃO DE FOCO E TRAP =====
+let ultimoElementoFocado = null;
+
+function getElementosFocaveis(container) {
+    return Array.from(container.querySelectorAll(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    )).filter(el => el.offsetParent !== null);
+}
+
+function trapFoco(e, container) {
+    if (e.key !== 'Tab') return;
+    const focaveis = getElementosFocaveis(container);
+    if (!focaveis.length) return;
+    const primeiro = focaveis[0];
+    const ultimo = focaveis[focaveis.length - 1];
+
+    if (e.shiftKey && document.activeElement === primeiro) {
+        e.preventDefault();
+        ultimo.focus();
+    } else if (!e.shiftKey && document.activeElement === ultimo) {
+        e.preventDefault();
+        primeiro.focus();
+    }
+}
+
+function abrirModal(modalEl, elementoParaFocar) {
+    ultimoElementoFocado = document.activeElement;
+    modalEl.classList.remove('hide');
+    modalEl.classList.add('show');
+    modalEl.style.display = 'block';
+
+    const focaveis = getElementosFocaveis(modalEl);
+    (elementoParaFocar || focaveis[0])?.focus();
+
+    modalEl._trapHandler = (e) => trapFoco(e, modalEl);
+    modalEl.addEventListener('keydown', modalEl._trapHandler);
+}
+
+function fecharModal(modalEl) {
+    modalEl.classList.remove('show');
+    modalEl.classList.add('hide');
+    setTimeout(() => { modalEl.style.display = 'none'; }, 300);
+
+    if (modalEl._trapHandler) {
+        modalEl.removeEventListener('keydown', modalEl._trapHandler);
+        modalEl._trapHandler = null;
+    }
+
+    if (ultimoElementoFocado) {
+        ultimoElementoFocado.focus();
+        ultimoElementoFocado = null;
+    }
+}
 
 // ===== MODAL DETALHES DO PROJETO =====
 const modalProjeto = document.getElementById('modal-projeto');
 const btnVoltarProjeto = document.getElementById('btn-voltar-projeto');
+const galeriaFechar = document.getElementById('galeria-fechar');
 const projetoBadge = document.getElementById('projeto-badge');
 const projetoTitulo = document.getElementById('projeto-titulo');
 const projetoPeriodo = document.getElementById('projeto-periodo');
@@ -264,7 +388,7 @@ function abrirModalProjeto(botao) {
         li.textContent = item;
         projetoFuncionalidades.appendChild(li);
     });
-    projetoFuncionalidades.style.display = funcionalidades.length ? 'block' : 'none';
+    projetoFuncionalidades.style.display = funcionalidades.length ? 'flex' : 'none';
 
     projetoTecnologias.innerHTML = '';
     tecnologias.forEach(tec => {
@@ -289,20 +413,17 @@ function abrirModalProjeto(botao) {
         projetoLinks.appendChild(a);
     }
 
-    modalProjeto.classList.remove('hide');
-    modalProjeto.classList.add('show');
-    modalProjeto.style.display = 'block';
     document.body.classList.add('modal-open');
+    abrirModal(modalProjeto, galeriaFechar);
 }
 
 function fecharModalProjeto() {
-    modalProjeto.classList.remove('show');
-    modalProjeto.classList.add('hide');
     document.body.classList.remove('modal-open');
-    setTimeout(() => { modalProjeto.style.display = 'none'; }, 300);
+    fecharModal(modalProjeto);
 }
 
 btnVoltarProjeto.onclick = fecharModalProjeto;
+if (galeriaFechar) galeriaFechar.onclick = fecharModalProjeto;
 
 // ===== FECHAR MODAIS CLICANDO FORA =====
 window.onclick = (e) => {
@@ -312,11 +433,15 @@ window.onclick = (e) => {
 };
 
 document.addEventListener('keydown', (e) => {
-    if (modalProjeto.style.display !== 'block') return;
-
-    if (e.key === 'Escape') fecharModalProjeto();
-    if (e.key === 'ArrowLeft') fotoAnterior();
-    if (e.key === 'ArrowRight') fotoProxima();
+    if (e.key === 'Escape') {
+        if (modalProjeto.style.display === 'block') fecharModalProjeto();
+        else if (modalCertificado.style.display === 'block') fecharModalCertificado();
+        else if (modal.style.display === 'block') closeModalFunction();
+    }
+    if (modalProjeto.style.display === 'block') {
+        if (e.key === 'ArrowLeft') fotoAnterior();
+        if (e.key === 'ArrowRight') fotoProxima();
+    }
 });
 
 // ===== MODO LANTERNA =====

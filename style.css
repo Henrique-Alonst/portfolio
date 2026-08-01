@@ -1438,8 +1438,7 @@ body.torch-mode .torch-cursor {
     }
     .torch-controls input[type="range"] { width: 80px; }
     .torch-toggle { left: 15px; bottom: 15px; }
-    /* Modo lanterna depende do mouse: escondido em telas de toque */
-    .torch-toggle { display: none; }
+
 }
 
 /* ===== MODAL DE DETALHES DO PROJETO ===== */

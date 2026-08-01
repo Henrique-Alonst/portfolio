@@ -491,3 +491,14 @@ document.addEventListener('mousemove', (e) => {
 torchRange.addEventListener('input', () => {
     torchDarkness.style.setProperty('--torch-radius', torchRange.value + 'px');
 });
+
+document.addEventListener('mousemove', (e) => {
+    if (torchActive) moverTocha(e.clientX, e.clientY);
+});
+
+// Suporte a toque: move a lanterna conforme o dedo desliza
+document.addEventListener('touchmove', (e) => {
+    if (torchActive && e.touches[0]) {
+        moverTocha(e.touches[0].clientX, e.touches[0].clientY);
+    }
+}, { passive: true });

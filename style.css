@@ -651,15 +651,18 @@ strong {
     color: #fff;
 }
 
-.card i.fa-html5 { color: #E34F26; }
-.card i.fa-css3-alt { color: #1572B6; }
-.card i.fa-js-square { color: #F7DF1E; }
-.card i.fa-php { color: #777BB4; }
-.card i.fa-node-js { color: #339933; }
-.card i.fa-database { color: #4479A1; }
-.card i.fa-github-alt { color: #ffffff; }
-.card i.fa-brands.fa-laravel { color: #FF2D20; }
-.card i.fa-brands.fa-git-alt {color: #F14E32;}
+/* Cores dos Ícones de Tecnologias */
+.tecnologias-section .cards-container .card i.fa-php { color: #777BB4; }
+.tecnologias-section .cards-container .card i.fa-laravel { color: #FF2D20; }
+.tecnologias-section .cards-container .card i.fa-js,
+.tecnologias-section .cards-container .card i.fa-js-square { color: #F7DF1E; }
+.tecnologias-section .cards-container .card i.fa-database { color: #4479A1; }
+.tecnologias-section .cards-container .card i.fa-node-js { color: #339933; }
+.tecnologias-section .cards-container .card i.fa-html5 { color: #E34F26; }
+.tecnologias-section .cards-container .card i.fa-css3-alt { color: #1572B6; }
+.tecnologias-section .cards-container .card i.fa-github-alt { color: #ffffff; }
+.tecnologias-section .cards-container .card i.fa-git-alt { color: #F14E32; }
+.tecnologias-section .cards-container .card i.fa-bootstrap { color: #7952B3; }
 
 /* ===== PROJETOS ===== */
 .projetos-section {
